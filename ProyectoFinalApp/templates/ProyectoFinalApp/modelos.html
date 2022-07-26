@@ -1,0 +1,47 @@
+{% extends 'ProyectoFinalApp/header.html' %}
+
+{% load static %}
+
+
+{% block contenidoPagina %}
+
+
+<section class="mb-5">
+  <div class="container mt-5">
+  <h1 class="text-center mb-5">NUESTRO GARAGE</h1>
+    {% if prueba != null%}
+    <div class="card text-center">
+      <div class="card-header">
+        STOCK DISPONIBLE
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Lo sentimos!</h5>
+        <p class="card-text">Todavia no hay ningun modelo en stock pero estamos trabajando en ello.</p>
+        <a href="{% url 'inicio' %}" class="btn btn-dark">Volver</a>
+      </div>
+    </div>
+    {%else%}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      {% for vehiculo in vehiculos %}
+      <a href="{% url 'detalle_vehiculo' vehiculo.id %}">
+        <div class="col">
+          <div class="card h-100 sombrear">
+            <img src="https://www.wyborkierowcow.pl/wp-content/uploads/2022/04/Lamborghini-Emblem-scaled.jpg" class="card-img-top" alt="lamborghini logo"/>
+            <div class="card-body">
+              <h5 class="card-title">{{vehiculo.modelo}}</h5>
+              <p class="card-text" style="height: 48px;">
+              {{vehiculo.resumen}}
+              </p>
+              <p class="card-text mt-5"><small class="text-muted">{{vehiculo.fecha_creacion}}</small></p>
+            </div>
+          </div>
+        </div>  
+      </a>
+    {% endfor %}
+  </div>
+    {% endif %}
+    
+  </div>
+</section>
+
+{% endblock %}

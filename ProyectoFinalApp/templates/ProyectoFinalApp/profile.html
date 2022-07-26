@@ -1,0 +1,12 @@
+{% extends 'ProyectoFinalApp/header.html' %}
+
+{% load static %}
+
+{% block title %}Mi perfil{% endblock title %}
+{% block contenidoPagina %}
+
+    <div class="row my-3 p-3">
+        <h1>Esta es la página de perfil de {{user.username}}</h1>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'ProyectoFinalApp/header.html' %}
+
+{% load static %}
+
+
+{% block contenidoPagina %}
+
+
+<section style="height: 100vh">
+<div class="container">
+    <div class="row">
+        <div class="col mt-5">
+          {% if user.is_staff%}
+          <a href="{% url 'panel' %}">
+            <i class="fa-solid fa-arrow-left h2 ms-3 text-dark"></i>
+          </a>
+            {% else %}
+            <a href="{% url 'modelos' %}">
+              <i class="fa-solid fa-arrow-left h2 ms-3 text-dark"></i>
+            </a>
+           {% endif %}
+            <div class="card text-center mt-5">
+                <div class="card-header">
+                  MODELO
+                </div>
+                <div class="card-body">
+                  <h1 class="card-title h2">{{vehiculos.modelo}}</h1>
+                  <img src="https://www.wyborkierowcow.pl/wp-content/uploads/2022/04/Lamborghini-Emblem-scaled.jpg" class="img-fluid" alt="Lamborghini LOGO"/>
+                  <h2 class="card-text text-start h4 mt-4">{{vehiculos.resumen}}</h2>
+                  <p class="card-text text-start">{{vehiculos.descripcion}}</p>
+                </div>
+                <div class="card-footer text-end text-muted">
+                        <p class="mx-auto">{{vehiculos.fecha_creacion}}</p>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+</section>
+
+{% endblock %}

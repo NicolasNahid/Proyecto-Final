@@ -1,0 +1,80 @@
+{% extends 'ProyectoFinalApp/header.html' %}
+
+{% load static %}
+
+
+{% block contenidoPagina %}
+<section id="inicio">
+    <div class="container">
+      <div class="row p-0 mb-5 text-center mt-5">
+        <div class="col">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9tYD52lG3ZC8xGwFpqKgei8ccYhO6DM0Mw6r-j4R-V4jS-qD5lxyMalEP78LyO-KaELU&usqp=CAU" class="img-fluid rounded fotos"
+            alt="lamborghini logo">
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section>
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8">
+                <div class="card mb-5 shadow-lg">
+                    <div class="card-header text-center bg-dark text-white">Sobre el proyecto</div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">GARAGE LAMBORGHINI</h5>
+                        <p class="card-text text-center mt-2 mb-4">
+                            El proyecto es una aplicación web que permite al usuario crear un garaje de Lamborghini, donde podrá publicar sus modelos y comentarlos.
+                            También permite el registro de usuarios y el inicio de sesión, la visualización del perfil del usuario y por ultimo 
+                            permite el contacto entre usuarios por medio de mensajes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="">
+    <div class="container">
+        <h1 class="text-center mt-5 mb-5">Nuestro Team</h1>
+        <div class="row row-cols-1 row-cols-md-2 mb-5 mt-5 align-items-center">
+            <div class="col-md-6 text-center">
+                <h1 class="h4 text-center mt-3">Nicolas Nahid</h1>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="https://enzyme.biz/hs-fs/hubfs/redes-neuronales-python.jpg?width=582&name=redes-neuronales-python.jpg" class="img-fluid rounded fotos"
+                    alt="imagen de progrmación">
+            </div>
+        </div>
+
+
+        <div class="row row-cols-1 row-cols-md-2 mb-5 mt-5 align-items-center">
+            <div class="col-md-6 text-center order-2 order-md-1">
+                <img src="https://enzyme.biz/hs-fs/hubfs/redes-neuronales-python.jpg?width=582&name=redes-neuronales-python.jpg" class="img-fluid rounded fotos"
+                    alt="imagen de progrmación">
+            </div>
+            <div class="col-md-6 text-center order-1 order-md-2">
+
+                <h1 class="h4 text-center mt-3">Nicolas Diaz</h1>
+            </div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 mb-5 mt-5 align-items-center">
+            <div class="col-md-6 text-center order-1">
+
+                <h1 class="h4 text-center mt-3">CoderHouse</h1>
+            </div>
+            <div class="col-md-6 text-center order-2">
+                <img src="http://res.cloudinary.com/hdsqazxtw/image/upload/v1570710978/coderhouse.jpg" class="img-fluid rounded fotos"
+                    alt="imagen de coderhouse">
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+
+
+{% endblock %}

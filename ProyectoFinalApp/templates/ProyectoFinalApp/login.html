@@ -1,0 +1,43 @@
+{% extends 'ProyectoFinalApp/header.html' %}
+
+{% load static %}
+
+
+{% block contenidoPagina %}
+
+<section>
+    <div class="container" style="height:100vh">
+        <div class="row d-flex align-items-center justify-content-center" style="height: 100%;">
+            <div class="col-10 col-lg-4 pb-3 pt-4 bg-login shadow-lg">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="text-center mb-5">
+                        <h1 class="my-2" style="font-family: 'Share Tech Mono', monospace;">Lambor Motors</h1>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        {{form.username}}
+                        <div>
+                            <label class="form-label" for="passwd">Usuario</label>
+                        </div>
+                        
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        {{form.password}}
+                        <div>
+                            <label class="form-label" for="passwd">Contraseña</label>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="text-center">
+                        <input type="submit" class="btn btn-outline-dark"  value="Ingresar" style="width: 80%;" tabindex="-1">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

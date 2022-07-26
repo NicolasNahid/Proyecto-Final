@@ -1,0 +1,55 @@
+{% extends 'ProyectoFinalApp/header.html' %}
+
+{% load static %}
+
+
+{% block contenidoPagina %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card bg-dark text-white mt-5">
+                    <img src="https://www.wyborkierowcow.pl/wp-content/uploads/2022/04/Lamborghini-Emblem-scaled.jpg" class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section style="height: 100vh">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="row row-cols-1 row-cols-md-2 g-4 mt-5 mb-5">
+                    <div class="col">
+                      <div class="card h-100">
+                        <img src="https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/home_og_2021.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">Sobre Nosotros</h5>
+                          <p class="card-text" style="height: 48px;">Conoce un poco sobre nosotros y nuestro Proyecto Final.</p>
+                          <div class="card-footer bg-dark">
+                            <a href="{% url 'nosotros' %}" class="btn btn-outline-light" style="width: 100%;">Mas informacion</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card h-100">
+                        <img src="https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/face_react/design/s1/02_s2.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">Modelos</h5>
+                          <p class="card-text">Ingresa a nuestra seccion de modelos y conoce todos nuestros modelos actualmente disponibles en stock, con actualización en tiempo real.</p>
+                          <div class="card-footer bg-dark">
+                            <a href="{%url 'modelos'%}" class="btn btn-outline-light" style="width: 100%;">Mas informacion</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

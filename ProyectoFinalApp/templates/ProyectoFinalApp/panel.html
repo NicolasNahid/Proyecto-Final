@@ -1,0 +1,56 @@
+{% extends 'ProyectoFinalApp/header.html' %}
+
+{% load static %}
+
+
+{% block contenidoPagina %}
+
+
+<section style="height: 100vh">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <a href="{% url 'crear_vehiculo' %}" class="btn btn-dark mb-3">Crear Nuevo Vehiculo</a>
+                <table class="table">
+                  <thead class="table-primary">
+                      <tr>
+                          <th scope="col">Titulo</th>
+                          <th scope="col">Resumen</th>
+                          <th scope="col">Fecha de Creacion</th>
+                        </tr>
+                  </thead>
+                        {% if prueba != null%}
+                        <div class="card text-center">
+                            <div class="card-header">
+                              Garage
+                            </div>
+                            <div class="card-body">
+                              <h5 class="card-title">Lo sentimos!</h5>
+                              <p class="card-text">Todavia no hay ningun modelo en stock pero estamos trabajando en ello.</p>
+                              <a href="{% url 'inicio' %}" class="btn btn-dark">Volver</a>
+                            </div>
+                          </div>
+                        {%else%}
+                        {% for vehiculo in vehiculos %}
+                            <tbody>
+                        <tr>
+                           <td>{{vehiculo.modelo}}</td>
+                           <td>{{vehiculo.resumen}}</td>
+                           <td>{{vehiculo.fecha_creacion}}</td>
+                           <td>
+                            <a href="{% url 'detalle_vehiculo' vehiculo.id %}"><i style="color:blue" class="fa-solid fa-eye"></i></a>
+                            <a href="{% url 'editar_vehiculo' vehiculo.id %}"><i style="color:green" class="fa-solid fa-pencil"></i></a>
+                            <a href="{% url 'eliminar_vehiculo' vehiculo.id %}"><i style="color:red" class="fa-solid fa-trash-can"></i></a>         
+                           </td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                      
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+     </div>
+</section>
+
+{% endblock %}

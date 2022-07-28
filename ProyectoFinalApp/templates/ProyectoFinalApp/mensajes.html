@@ -1,0 +1,17 @@
+{% extends 'ProyectoFinalApp/header.html' %}
+
+{% load static %}
+
+
+{% block contenidoPagina %}
+
+
+<form action="" method="post">
+
+{%csrf_token%}
+{{form.as_p}}
+<button>enviar</button>
+
+</form>
+
+{% endblock %}

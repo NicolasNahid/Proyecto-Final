@@ -25,7 +25,11 @@
                 </div>
                 <div class="card-body">
                   <h1 class="card-title h2">{{vehiculos.modelo}}</h1>
-                  <img src="https://www.wyborkierowcow.pl/wp-content/uploads/2022/04/Lamborghini-Emblem-scaled.jpg" class="img-fluid" alt="Lamborghini LOGO"/>
+                  {% if vehiculos.foto %}
+            
+                    <img src="{{ vehiculos.foto.url }}" class="card-img-top" alt="lamborghini logo"/>
+
+                  {% endif %}
                   <h2 class="card-text text-start h4 mt-4">{{vehiculos.resumen}}</h2>
                   <p class="card-text text-start">{{vehiculos.descripcion}}</p>
                 </div>

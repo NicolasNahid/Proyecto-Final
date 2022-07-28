@@ -1,18 +1,12 @@
-from email.mime import image
-from django.forms import ImageField
 from django.shortcuts import redirect, render
-
-from ProyectoFinalApp.forms import FormVehiculo, UserRegisterForm
-
-from ProyectoFinalApp.models import vehiculo
-
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-
+from ProyectoFinalApp.forms import FormVehiculo, UserRegisterForm, MensajeForm
+from ProyectoFinalApp.models import Mensaje, Vehiculo
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-
+from django.contrib.auth.models import User
 
 def inicio(request):
 
@@ -26,9 +20,9 @@ def nosotros(request):
 
 def modelos(request):
     
-    vehiculos = vehiculo.objects.all()
+    vehiculos = Vehiculo.objects.all()
     if len(vehiculos) > 0:
-        vehiculos = vehiculo.objects.all()
+        vehiculos = Vehiculo.objects.all()
         return render(request, 'ProyectoFinalApp/modelos.html', {'vehiculos': vehiculos})
     else:
         prueba = "No hay vehiculos"
@@ -87,9 +81,9 @@ def logout_request(request):
 @staff_member_required
 def panel(request):
 
-    vehiculos = vehiculo.objects.all()
+    vehiculos = Vehiculo.objects.all()
     if len(vehiculos) > 0:
-      vehiculos = vehiculo.objects.all()
+      vehiculos = Vehiculo.objects.all()
       return render(request, 'ProyectoFinalApp/panel.html', {'vehiculos': vehiculos})
     else:
         prueba = "No hay vehiculos"
@@ -103,14 +97,14 @@ def profile(request):
 
 def detalle_vehiculo(request,vehiculoID):
     
-    vehiculos = vehiculo.objects.get(id=vehiculoID)
+    vehiculos = Vehiculo.objects.get(id=vehiculoID)
     return render(request, 'ProyectoFinalApp/detalle_vehiculo.html', {'vehiculos': vehiculos})
 
 
 @staff_member_required
 def eliminar_vehiculo(request, vehiculo_id):
 
-    vehiculos = vehiculo.objects.get(id=vehiculo_id)
+    vehiculos = Vehiculo.objects.get(id=vehiculo_id)
     vehiculos.delete()
 
     return redirect("panel")
@@ -121,22 +115,23 @@ def crear_vehiculo(request):
 
     if request.method == "POST":
 
-        formulario = FormVehiculo(request.POST)
+        formulario = FormVehiculo(request.POST, request.FILES)
 
         if formulario.is_valid():
 
-            info_art = formulario.cleaned_data
+            # info_art = formulario.cleaned_data
         
-            nuevo = vehiculo(modelo=info_art["modelo"], resumen=info_art["resumen"], descripcion=info_art["descripcion"],
-            categoria=info_art["categoria"], foto=formulario.cleaned_data["foto"])
+            # nuevo = vehiculo(modelo=info_art["modelo"], resumen=info_art["resumen"], descripcion=info_art["descripcion"],
+            # categoria=info_art["categoria"], foto=formulario.cleaned_data["foto"])
 
-            nuevo.save() 
+            # nuevo.save() 
+            formulario.save()
             messages.add_message(request, messages.SUCCESS, 'El vehículo ha sido agregado correctamente')
             return redirect('panel')
 
-        else:
-            messages.add_message(request, messages.ERROR, 'El vehículo no ha sido agregado')
-            return render(request,"ProyectoFinalApp/formulario_vehiculo.html",{"form":formulario,"accion":"Crear Vehiculo"})
+        # else:
+            # messages.add_message(request, messages.ERROR, 'El vehículo no ha sido agregado')
+            # return render(request,"ProyectoFinalApp/formulario_vehiculo.html",{"form":formulario,"accion":"Crear Vehiculo"})
     
 
     else:
@@ -148,30 +143,36 @@ def crear_vehiculo(request):
 @staff_member_required
 def editar_vehiculo(request, vehiculo_id):
     
-    vehiculos = vehiculo.objects.get(id=vehiculo_id)
+    vehiculos = Vehiculo.objects.get(id=vehiculo_id)
 
     if request.method == "POST":
 
-        formulario = FormVehiculo(request.POST)
-
+        formulario = FormVehiculo(request.POST, request.FILES, instance = vehiculos)
         if formulario.is_valid():
-
-            info_art = formulario.cleaned_data
-        
-            vehiculos.modelo = info_art["modelo"]
-            vehiculos.resumen = info_art["resumen"]
-            vehiculos.descripcion = info_art["descripcion"]
-            vehiculos.fecha_creacion = info_art["fecha_creacion"]
-            vehiculos.categoria = info_art["categoria"]
-            vehiculos.foto = ImageField()["foto"]
-            vehiculos.save()
+            
+            formulario.save()
             messages.add_message(request, messages.SUCCESS, 'El vehículo ha sido editado correctamente')
             return redirect('panel')
         else:
             messages.add_message(request, messages.ERROR, 'El vehículo no ha sido editado')
     else:       
-     formulario = FormVehiculo(initial={"modelo":vehiculos.modelo,"resumen":vehiculos.resumen,"descripcion":vehiculos.descripcion,
-     "fecha_creacion":vehiculos.fecha_creacion, "categoria":vehiculos.categoria, "foto":vehiculos.foto})
+     formulario = FormVehiculo(instance=vehiculos)
 
     return render(request,"ProyectoFinalApp/formulario_vehiculo.html",{"form":formulario,"accion":"Editar Vehiculo"})
-    
+
+@login_required
+def nuevo_mensaje(request):
+    if request.method == "POST":
+        form = MensajeForm(request.POST)
+        if form.is_valid():
+            nuevo_mensaje = form.save(commit = False)
+            nuevo_mensaje.autor = request.user
+            nuevo_mensaje.save()
+            return redirect('modelos')
+    else:
+        form = MensajeForm()
+    ctx = {"form": form}
+    return render(request, "ProyectoFinalApp/mensajes.html", ctx)
+
+# Mensaje.objects.filter(destinatario=request.user) -> recibidos
+# Mensaje.objects.filter(autor=request.user) -> enviados

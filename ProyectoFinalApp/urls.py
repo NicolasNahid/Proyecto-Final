@@ -16,6 +16,6 @@ urlpatterns = [
     path('eliminar_vehiculo/<vehiculo_id>', eliminar_vehiculo, name="eliminar_vehiculo"),
     path('formulario_vehiculo/', crear_vehiculo, name="crear_vehiculo"),
     path('editar_vehiculo/<vehiculo_id>', editar_vehiculo, name="editar_vehiculo"),
-
+    path('mensajes/', nuevo_mensaje, name="mensajes"),
     
 ]

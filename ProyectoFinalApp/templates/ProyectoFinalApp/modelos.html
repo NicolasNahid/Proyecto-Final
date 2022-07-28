@@ -9,7 +9,7 @@
 <section class="mb-5">
   <div class="container mt-5">
   <h1 class="text-center mb-5">NUESTRO GARAGE</h1>
-    {% if prueba != null%}
+    {% if prueba != null %}
     <div class="card text-center">
       <div class="card-header">
         STOCK DISPONIBLE
@@ -20,13 +20,17 @@
         <a href="{% url 'inicio' %}" class="btn btn-dark">Volver</a>
       </div>
     </div>
-    {%else%}
+    {% else %}
     <div class="row row-cols-1 row-cols-md-3 g-4">
       {% for vehiculo in vehiculos %}
       <a href="{% url 'detalle_vehiculo' vehiculo.id %}">
         <div class="col">
           <div class="card h-100 sombrear">
-            <img src="https://www.wyborkierowcow.pl/wp-content/uploads/2022/04/Lamborghini-Emblem-scaled.jpg" class="card-img-top" alt="lamborghini logo"/>
+              {% if vehiculo.foto %}
+            
+                <img src="{{ vehiculo.foto.url }}" class="card-img-top" alt="lamborghini logo">
+
+              {% endif %}
             <div class="card-body">
               <h5 class="card-title">{{vehiculo.modelo}}</h5>
               <p class="card-text" style="height: 48px;">

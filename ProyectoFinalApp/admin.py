@@ -10,4 +10,4 @@ class VehiculoAdmin(admin.ModelAdmin):
     search_fields = ('modelo', 'resumen')
 
 
-admin.site.register(vehiculo, VehiculoAdmin)
+admin.site.register(Vehiculo, VehiculoAdmin)

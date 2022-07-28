@@ -17,5 +17,7 @@ urlpatterns = [
     path('formulario_vehiculo/', crear_vehiculo, name="crear_vehiculo"),
     path('editar_vehiculo/<vehiculo_id>', editar_vehiculo, name="editar_vehiculo"),
     path('mensajes/', nuevo_mensaje, name="mensajes"),
+    path('mensajes_recibidos/', mensajes_recibidos, name="mensajes_recibidos"),
+    path('mensajes_enviados/', mensajes_enviados, name="mensajes_enviados"),
     
 ]

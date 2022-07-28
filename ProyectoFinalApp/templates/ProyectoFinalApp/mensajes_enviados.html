@@ -1,0 +1,53 @@
+{% extends 'ProyectoFinalApp/header.html' %}
+
+{% load static %}
+
+
+{% block contenidoPagina %}
+
+<section style="height: 100vh">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <a href="{% url 'mensajes' %}" class="btn btn-dark mb-3">Enviar Nuevo Mensaje</a>
+                <table class="table">
+                  <thead class="table-primary">
+                      <tr>
+                          <th scope="col">Destinatario</th>
+                          <th scope="col">Asunto</th>
+                          <th scope="col">Fecha de Creacion</th>
+                          <th scope="col">Contenido</th>
+                        </tr>
+                  </thead>
+                        {% if prueba != null%}
+                        <div class="card text-center">
+                            <div class="card-header">
+                              Mensajes
+                            </div>
+                            <div class="card-body">
+                              <h5 class="card-title">Lo sentimos!</h5>
+                              <p class="card-text">Todavia no hay ningun mensaje en su bandeja de entrada.</p>
+                              <a href="{% url 'inicio' %}" class="btn btn-dark">Volver</a>
+                            </div>
+                          </div>
+                        {%else%}
+                        {% for mensaje in mensajes %}
+                            <tbody>
+                        <tr>
+                           <td>{{mensaje.destinatario}}</td>
+                           <td>{{mensaje.asunto}}</td>
+                           <td>{{mensaje.fecha_hora}}</td>
+                           <td>{{mensaje.contenido}}</td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                      
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+     </div>
+</section>
+
+
+{% endblock %}

@@ -5,13 +5,25 @@
 
 {% block contenidoPagina %}
 
+<section class="">
+    <div class="container">
+        <h1 class="text-center mt-5 mb-5">Mensajería</h1>
+        <div class="row row-cols-1 row-cols-md-2 mb-5 mt-5 align-items-center">
+            <div class="col-md-6 text-center">
+                <h1 class="h4 text-center mt-3">Nuevo Mensaje</h1>
+                <form action="" method="post">
 
-<form action="" method="post">
+                    {%csrf_token%}
+                    {{form.as_p}}
+                    <button>Enviar</button>
+                    
+                </form>
+            </div>
+        </div>
 
-{%csrf_token%}
-{{form.as_p}}
-<button>enviar</button>
 
-</form>
+    </div>
+</section>
+
 
 {% endblock %}

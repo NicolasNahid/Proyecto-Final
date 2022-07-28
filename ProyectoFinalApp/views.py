@@ -140,6 +140,7 @@ def crear_vehiculo(request):
 
         return render(request,"ProyectoFinalApp/formulario_vehiculo.html",{"form":formularioVacio,"accion":"Crear Vehiculo"})
 
+
 @staff_member_required
 def editar_vehiculo(request, vehiculo_id):
     
@@ -160,6 +161,7 @@ def editar_vehiculo(request, vehiculo_id):
 
     return render(request,"ProyectoFinalApp/formulario_vehiculo.html",{"form":formulario,"accion":"Editar Vehiculo"})
 
+
 @login_required
 def nuevo_mensaje(request):
     if request.method == "POST":
@@ -168,11 +170,34 @@ def nuevo_mensaje(request):
             nuevo_mensaje = form.save(commit = False)
             nuevo_mensaje.autor = request.user
             nuevo_mensaje.save()
-            return redirect('modelos')
+            return redirect('mensajes_enviados')
     else:
         form = MensajeForm()
     ctx = {"form": form}
     return render(request, "ProyectoFinalApp/mensajes.html", ctx)
 
+
+@login_required
+def mensajes_recibidos(request):
+    
+    mensajes_recibidos = Mensaje.objects.filter(destinatario=request.user)
+    if len(mensajes_recibidos) > 0:
+        mensajes_recibidos = Mensaje.objects.filter(destinatario=request.user)
+        return render(request, 'ProyectoFinalApp/mensajes_recibidos.html', {'mensajes_recibidos': mensajes_recibidos})
+    else:
+        prueba = "No hay mensajes recibidos"
+        return render(request, 'ProyectoFinalApp/mensajes_recibidos.html', {'prueba': prueba})
+
+
+@login_required
+def mensajes_enviados(request):
+    mensajes_enviados = Mensaje.objects.filter(autor=request.user)
+    if len(mensajes_enviados) > 0:
+        mensajes_enviados = Mensaje.objects.filter(autor=request.user)
+        return render(request, 'ProyectoFinalApp/mensajes_enviados.html', {'mensajes_enviados': mensajes_enviados})
+    else:
+        prueba = "No hay mensajes enviados"
+        return render(request, 'ProyectoFinalApp/mensajes_enviados.html', {'prueba': prueba})
+    
 # Mensaje.objects.filter(destinatario=request.user) -> recibidos
 # Mensaje.objects.filter(autor=request.user) -> enviados

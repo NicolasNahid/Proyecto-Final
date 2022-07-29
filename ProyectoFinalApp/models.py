@@ -37,3 +37,15 @@ class Mensaje(models.Model):
     class Meta:
         verbose_name = 'Mensaje'
         verbose_name_plural = 'Mensajes'
+
+
+
+
+class Profile(models.Model):
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
+    bio = models.TextField()
+
+    def __str__(self):
+        return self.user.username

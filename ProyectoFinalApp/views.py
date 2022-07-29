@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from ProyectoFinalApp.forms import FormVehiculo, UserRegisterForm, MensajeForm
+from ProyectoFinalApp.forms import FormVehiculo, UpdateProfileForm, UpdateUserForm, UserRegisterForm, MensajeForm
 from ProyectoFinalApp.models import Mensaje, Vehiculo
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
@@ -50,6 +50,7 @@ def login_request(request):
 
     return render(request, 'ProyectoFinalApp/login.html', {'form': form})
 
+
 def register_request(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -78,6 +79,7 @@ def logout_request(request):
     logout(request)
     return redirect("inicio")
 
+
 @staff_member_required
 def panel(request):
 
@@ -88,7 +90,8 @@ def panel(request):
     else:
         prueba = "No hay vehiculos"
         return render(request, 'ProyectoFinalApp/panel.html', {'prueba': prueba})
-    
+
+
 @login_required
 def profile(request):
 
@@ -202,5 +205,26 @@ def mensajes_enviados(request):
         prueba = "No hay mensajes enviados"
         return render(request, 'ProyectoFinalApp/mensajes_enviados.html', {'prueba': prueba})
     
-# Mensaje.objects.filter(destinatario=request.user) -> recibidos
-# Mensaje.objects.filter(autor=request.user) -> enviados
+
+@login_required
+def profile(request):
+    return render(request, 'ProyectoFinalApp/profile.html')
+
+
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='users-profile')
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        profile_form = UpdateProfileForm(instance=request.user.profile)
+
+    return render(request, 'users/profile.html', {'user_form': user_form, 'profile_form': profile_form})

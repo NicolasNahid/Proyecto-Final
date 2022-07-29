@@ -9,9 +9,11 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col">
+              <form method="get" enctype="multipart/form-data">
                 <a href="{% url 'mensajes' %}" class="btn btn-dark mb-3">Enviar Nuevo Mensaje</a>
                 <table class="table">
                   <thead class="table-primary">
+                    
                       <tr>
                           <th scope="col">Autor</th>
                           <th scope="col">Asunto</th>
@@ -44,6 +46,7 @@
                       
                     </tbody>
                   </table>
+                </form>
             </div>
         </div>
      </div>

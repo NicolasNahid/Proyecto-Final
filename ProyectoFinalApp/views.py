@@ -164,6 +164,8 @@ def editar_vehiculo(request, vehiculo_id):
 
 @login_required
 def nuevo_mensaje(request):
+    
+   
     if request.method == "POST":
         form = MensajeForm(request.POST)
         if form.is_valid():
@@ -179,7 +181,6 @@ def nuevo_mensaje(request):
 
 @login_required
 def mensajes_recibidos(request):
-    
     mensajes_recibidos = Mensaje.objects.filter(destinatario=request.user)
     if len(mensajes_recibidos) > 0:
         mensajes_recibidos = Mensaje.objects.filter(destinatario=request.user)
@@ -191,7 +192,9 @@ def mensajes_recibidos(request):
 
 @login_required
 def mensajes_enviados(request):
+    
     mensajes_enviados = Mensaje.objects.filter(autor=request.user)
+    
     if len(mensajes_enviados) > 0:
         mensajes_enviados = Mensaje.objects.filter(autor=request.user)
         return render(request, 'ProyectoFinalApp/mensajes_enviados.html', {'mensajes_enviados': mensajes_enviados})

@@ -1,7 +1,6 @@
+from ast import arg
 from django.db import models
 from django.contrib.auth.models import User
-
-# Create your models here.
 
 
 class Vehiculo(models.Model):
@@ -21,8 +20,6 @@ class Vehiculo(models.Model):
         verbose_name_plural = 'Vehiculos'
 
 
-
-
 class Mensaje(models.Model):
     autor = models.ForeignKey(User, related_name = "autor", on_delete=models.CASCADE)
     destinatario = models.ForeignKey(User, related_name = "destinatario", on_delete=models.CASCADE)
@@ -39,8 +36,6 @@ class Mensaje(models.Model):
         verbose_name_plural = 'Mensajes'
 
 
-
-
 class Profile(models.Model):
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -49,3 +44,5 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+  
+    

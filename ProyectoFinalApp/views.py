@@ -1,12 +1,15 @@
 from django.shortcuts import redirect, render
-from ProyectoFinalApp.forms import FormVehiculo, UpdateProfileForm, UpdateUserForm, UserRegisterForm, MensajeForm
+from ProyectoFinalApp.forms import FormVehiculo, UserRegisterForm, MensajeForm, UpdateProfileForm, UpdateUserForm
 from ProyectoFinalApp.models import Mensaje, Vehiculo
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth.models import User
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.views.defaults import page_not_found
 
 def inicio(request):
 
@@ -90,12 +93,6 @@ def panel(request):
     else:
         prueba = "No hay vehiculos"
         return render(request, 'ProyectoFinalApp/panel.html', {'prueba': prueba})
-
-
-@login_required
-def profile(request):
-
-    return render(request, 'ProyectoFinalApp/profile.html')
 
 
 def detalle_vehiculo(request,vehiculoID):
@@ -204,16 +201,11 @@ def mensajes_enviados(request):
     else:
         prueba = "No hay mensajes enviados"
         return render(request, 'ProyectoFinalApp/mensajes_enviados.html', {'prueba': prueba})
+
+
+@login_required
+def profile(request):
     
-
-@login_required
-def profile(request):
-    return render(request, 'ProyectoFinalApp/profile.html')
-
-
-
-@login_required
-def profile(request):
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
@@ -221,10 +213,21 @@ def profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, 'Your profile is updated successfully')
-            return redirect(to='users-profile')
+            messages.success(request, 'Tu perfil ha sido actualizado con éxito')
+            return redirect('profile')
     else:
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
-    return render(request, 'users/profile.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'ProyectoFinalApp/profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+
+class CambiarContraseña(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'ProyectoFinalApp/cambiar_contraseña.html'
+    success_message = 'Cambiaste tu contraseña con éxito'
+    success_url = reverse_lazy('profile')
+ 
+
+def error_404_view(request, exception):
+   
+    return render(request, '404.html')

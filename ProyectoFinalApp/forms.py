@@ -14,21 +14,20 @@ class UserRegisterForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
 
-
 class FormVehiculo(forms.ModelForm):
 
     class Meta:
         model = Vehiculo
-        fields = ['modelo', 'resumen', 'descripcion', 'categoria', 'foto']
-        
-        
-        
+        fields = ['modelo', 'resumen', 'descripcion', 'categoria', 'foto']       
+
+      
 class MensajeForm(forms.ModelForm):
     
     class Meta:
         model = Mensaje
         fields = ['autor', 'destinatario', 'asunto', 'contenido']
-        
+
+      
 class UpdateUserForm(forms.ModelForm):
     username = forms.CharField(max_length=100,
                                required=True,

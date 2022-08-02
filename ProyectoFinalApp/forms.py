@@ -25,7 +25,7 @@ class MensajeForm(forms.ModelForm):
     
     class Meta:
         model = Mensaje
-        fields = ['autor', 'destinatario', 'asunto', 'contenido']
+        fields = ['destinatario', 'asunto', 'contenido']
 
       
 class UpdateUserForm(forms.ModelForm):

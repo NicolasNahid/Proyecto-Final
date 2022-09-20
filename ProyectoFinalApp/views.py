@@ -118,20 +118,9 @@ def crear_vehiculo(request):
         formulario = FormVehiculo(request.POST, request.FILES)
 
         if formulario.is_valid():
-
-            # info_art = formulario.cleaned_data
-        
-            # nuevo = vehiculo(modelo=info_art["modelo"], resumen=info_art["resumen"], descripcion=info_art["descripcion"],
-            # categoria=info_art["categoria"], foto=formulario.cleaned_data["foto"])
-
-            # nuevo.save() 
             formulario.save()
             messages.add_message(request, messages.SUCCESS, 'El vehículo ha sido agregado correctamente')
             return redirect('panel')
-
-        # else:
-            # messages.add_message(request, messages.ERROR, 'El vehículo no ha sido agregado')
-            # return render(request,"ProyectoFinalApp/formulario_vehiculo.html",{"form":formulario,"accion":"Crear Vehiculo"})
     
 
     else:
